@@ -1,5 +1,5 @@
 """Django settings for Salud Vital - evaluación.
-Autor: Jonatha Nicolas Verdugo Garrido
+Autor: Jonathan Nicolas Verdugo Garrido
 """
 import os
 from pathlib import Path
