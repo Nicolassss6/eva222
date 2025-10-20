@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}{{ view.object|default:'Nuevo' }} - Médico{% endblock %}
+{% block content %}
+<div class="card" style="max-width:700px">
+  <h2>Formulario de Médico</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div style="margin-top:12px">
+      <button class="btn" type="submit">Guardar</button>
+      <a href="{% url 'medico_list' %}" style="margin-left:8px">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

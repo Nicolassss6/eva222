@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block title %}Confirmar Eliminación{% endblock %}{% block content %}<div class="card"><h2>Eliminar</h2><p>¿Seguro que deseas eliminar este registro?</p><form method="post">{% csrf_token %}<button class="btn" type="submit">Sí, eliminar</button><a href="javascript:history.back()" style="margin-left:8px">Cancelar</a></form></div>{% endblock %}

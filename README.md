@@ -1,0 +1,1 @@
+# Proyecto Salud Vital - Evaluación\n\nAutor: Jonatha Nicolás Verdugo Garrido\n\nInstrucciones:\n1. Crear entorno virtual\n2. pip install -r requirements.txt\n3. python manage.py migrate\4. python manage.py runserver\n

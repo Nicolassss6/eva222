@@ -1,0 +1,86 @@
+[
+  {
+    "model": "core.especialidad",
+    "pk": 1,
+    "fields": {
+      "nombre": "Medicina General"
+    }
+  },
+  {
+    "model": "core.especialidad",
+    "pk": 2,
+    "fields": {
+      "nombre": "Pediatr\u00eda"
+    }
+  },
+  {
+    "model": "core.especialidad",
+    "pk": 3,
+    "fields": {
+      "nombre": "Dermatolog\u00eda"
+    }
+  },
+  {
+    "model": "core.medico",
+    "pk": 1,
+    "fields": {
+      "nombre": "Carlos",
+      "apellido": "Ram\u00edrez",
+      "rut": "12.345.678-9",
+      "telefono": "+56912345678",
+      "especialidad": 1
+    }
+  },
+  {
+    "model": "core.medico",
+    "pk": 2,
+    "fields": {
+      "nombre": "Mar\u00eda",
+      "apellido": "Gonz\u00e1lez",
+      "rut": "11.222.333-4",
+      "telefono": "+56987654321",
+      "especialidad": 2
+    }
+  },
+  {
+    "model": "core.paciente",
+    "pk": 1,
+    "fields": {
+      "nombre": "Ana",
+      "apellido": "P\u00e9rez",
+      "rut": "10.101.101-0",
+      "fecha_nacimiento": "1990-05-12",
+      "telefono": "+56911111111",
+      "direccion": "Av. Principal 123"
+    }
+  },
+  {
+    "model": "core.medicamento",
+    "pk": 1,
+    "fields": {
+      "nombre": "Paracetamol",
+      "presentacion": "500 mg"
+    }
+  },
+  {
+    "model": "core.consulta",
+    "pk": 1,
+    "fields": {
+      "medico": 1,
+      "paciente": 1,
+      "fecha": "2025-10-01T10:00:00Z",
+      "motivo": "Dolor de cabeza",
+      "diagnostico": "Migra\u00f1a leve"
+    }
+  },
+  {
+    "model": "core.receta",
+    "pk": 1,
+    "fields": {
+      "consulta": 1,
+      "medicamento": 1,
+      "dosis": "1 comprimido cada 8 horas",
+      "instrucciones": "Tomar con agua por 3 d\u00edas"
+    }
+  }
+]

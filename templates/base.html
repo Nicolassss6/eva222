@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>{% block title %}Salud Vital{% endblock %}</title>
+    <style>
+      :root{--bg:#f6f8fb;--card:#fff;--accent:#0ea5a4;--muted:#6b7280}
+      body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#111;min-height:100vh;display:flex;flex-direction:column}
+      header{background:linear-gradient(90deg,#064e3b,#0ea5a4);color:#fff;padding:18px 24px}
+      .container{max-width:1100px;margin:0 auto;padding:18px}
+      nav a{color:rgba(255,255,255,0.95);text-decoration:none;margin-right:14px;font-weight:600}
+      main{flex:1;padding:24px}
+      .card{background:var(--card);border-radius:10px;box-shadow:0 6px 18px rgba(12,12,12,0.06);padding:18px}
+      .btn{display:inline-block;padding:8px 12px;border-radius:8px;text-decoration:none;background:var(--accent);color:white;font-weight:700}
+      table{width:100%;border-collapse:collapse}
+      th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}
+    </style>
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      <div class="container" style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <h1 style="margin:0;font-size:18px">Salud Vital - Sistema de Gestión</h1>
+          <div style="font-size:13px;color:rgba(255,255,255,0.9)">Evaluación Backend • Sección IEC-170-N3</div>
+        </div>
+        <nav>
+          <a href="{% url 'especialidad_list' %}">Especialidades</a>
+          <a href="{% url 'medico_list' %}">Médicos</a>
+          <a href="{% url 'paciente_list' %}">Pacientes</a>
+          <a href="{% url 'consulta_list' %}">Consultas</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+    <footer style="background:#022c22;color:white;padding:12px 0;margin-top:18px">
+      <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+        <div>Salud Vital Ltda. — Proyecto de Evaluación</div>
+        <div>© {% now "Y" %} • Jonatha Nicolás Verdugo Garrido</div>
+      </div>
+    </footer>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

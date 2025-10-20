@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Médicos - Salud Vital{% endblock %}
+{% block content %}
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h2>Médicos</h2>
+    <a class="btn" href="{% url 'medico_create' %}">Nuevo médico</a>
+  </div>
+  <form method="get" style="margin-top:12px;display:flex;gap:8px">
+    <input type="text" name="q" placeholder="Buscar..." value="{{ request.GET.q|default:'' }}" />
+    <select name="especialidad">
+      <option value="">Todas</option>
+      {% for e in especialidad_list %}
+        <option value="{{ e.id }}" {% if request.GET.especialidad == e.id|stringformat:'s' %}selected{% endif %}>{{ e.nombre }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn">Filtrar</button>
+  </form>
+  <table style="margin-top:12px">
+    <thead><tr><th>Nombre</th><th>Especialidad</th><th>RUT</th><th>Teléfono</th><th>Acciones</th></tr></thead>
+    <tbody>
+      {% for medico in object_list %}
+        <tr>
+          <td>{{ medico.nombre_completo }}</td>
+          <td>{{ medico.especialidad }}</td>
+          <td>{{ medico.rut }}</td>
+          <td>{{ medico.telefono }}</td>
+          <td><a href="{% url 'medico_detail' medico.id %}">Ver</a> | <a href="{% url 'medico_update' medico.id %}">Editar</a> | <a href="{% url 'medico_delete' medico.id %}">Eliminar</a></td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5">No hay médicos registrados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

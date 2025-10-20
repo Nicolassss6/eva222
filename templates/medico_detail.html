@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Detalle Médico{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Detalle - {{ object.nombre_completo }}</h2>
+  <p><strong>RUT:</strong> {{ object.rut }}</p>
+  <p><strong>Especialidad:</strong> {{ object.especialidad }}</p>
+  <p><strong>Teléfono:</strong> {{ object.telefono }}</p>
+  <p><a href="{% url 'medico_update' object.id %}">Editar</a> | <a href="{% url 'medico_list' %}">Volver</a></p>
+</div>
+{% endblock %}
