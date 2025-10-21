@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Nueva Receta{% endblock %}
+{% block content %}
+<div class="card mt-4 p-4">
+  <h2>{% if object %}Editar Receta{% else %}Registrar Receta{% endif %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success mt-2">Guardar</button>
+    <a href="{% url 'receta_list' %}" class="btn btn-secondary mt-2">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

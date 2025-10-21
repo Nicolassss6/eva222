@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
-from .models import Medico, Especialidad, Paciente, Consulta, Medicamento, Receta
-from .forms import MedicoForm, PacienteForm, ConsultaForm, RecetaForm
+from .models import Medico, Especialidad, Paciente, Consulta, Medicamento, Tratamiento
+from .forms import MedicoForm, PacienteForm, ConsultaForm
 
+# MEDICO
 class MedicoListView(ListView):
     model = Medico
     template_name = 'medico_list.html'
@@ -40,6 +41,7 @@ class MedicoDeleteView(DeleteView):
     template_name = 'confirm_delete.html'
     success_url = reverse_lazy('medico_list')
 
+# PACIENTE
 class PacienteListView(ListView):
     model = Paciente
     template_name = 'paciente_list.html'
@@ -51,10 +53,12 @@ class PacienteCreateView(CreateView):
     template_name = 'paciente_form.html'
     success_url = reverse_lazy('paciente_list')
 
+# ESPECIALIDAD
 class EspecialidadListView(ListView):
     model = Especialidad
     template_name = 'especialidad_list.html'
 
+# CONSULTA
 class ConsultaListView(ListView):
     model = Consulta
     template_name = 'consulta_list.html'
@@ -66,5 +70,31 @@ class ConsultaCreateView(CreateView):
     template_name = 'consulta_form.html'
     success_url = reverse_lazy('consulta_list')
 
+# TRATAMIENTO
+class TratamientoListView(ListView):
+    model = Tratamiento
+    template_name = 'tratamiento_list.html'
+    paginate_by = 10
+
 def home(request):
     return redirect('medico_list')
+
+# ------------------ RECETA ------------------
+from .models import Receta
+from .forms import RecetaForm
+from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
+
+
+class RecetaListView(ListView):
+    model = Receta
+    template_name = 'receta_list.html'
+    paginate_by = 10
+
+
+class RecetaCreateView(CreateView):
+    model = Receta
+    form_class = RecetaForm
+    template_name = 'receta_form.html'
+    success_url = reverse_lazy('receta_list')
+

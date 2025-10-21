@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Inicio - Salud Vital{% endblock %}
+{% block content %}
+<div class="text-center mt-5">
+  <h1>Bienvenido a <strong>Salud Vital</strong> 🏥</h1>
+  <p class="lead mt-3">
+    Sistema de gestión médica desarrollado para la evaluación de <strong>Programación Backend</strong>.
+  </p>
+  <div class="mt-4">
+    <a href="{% url 'medico_list' %}" class="btn btn-primary m-2">Ver Médicos</a>
+    <a href="{% url 'paciente_list' %}" class="btn btn-secondary m-2">Ver Pacientes</a>
+    <a href="{% url 'consulta_list' %}" class="btn btn-success m-2">Ver Consultas</a>
+  </div>
+</div>
+{% endblock %}

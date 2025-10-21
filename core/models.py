@@ -1,62 +1,79 @@
 from django.db import models
 
+# ------------------ ESPECIALIDAD ------------------
 class Especialidad(models.Model):
-    nombre = models.CharField(max_length=120)
+    nombre = models.CharField(max_length=100)
 
     def __str__(self):
         return self.nombre
 
+
+# ------------------ MÉDICO ------------------
 class Medico(models.Model):
-    nombre = models.CharField(max_length=80)
-    apellido = models.CharField(max_length=80)
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100)
     rut = models.CharField(max_length=12, unique=True)
-    telefono = models.CharField(max_length=20, blank=True)
-    especialidad = models.ForeignKey(Especialidad, on_delete=models.SET_NULL, null=True, related_name='medicos')
-
-    @property
-    def nombre_completo(self):
-        return f"{self.nombre} {self.apellido}"
+    especialidad = models.ForeignKey(Especialidad, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nombre_completo
+        return f"{self.nombre} {self.apellido}"
 
+
+# ------------------ PACIENTE ------------------
 class Paciente(models.Model):
-    nombre = models.CharField(max_length=80)
-    apellido = models.CharField(max_length=80)
-    rut = models.CharField(max_length=12, unique=True)
-    fecha_nacimiento = models.DateField(null=True, blank=True)
-    telefono = models.CharField(max_length=20, blank=True)
-    direccion = models.CharField(max_length=200, blank=True)
+    SEXO_CHOICES = [
+        ('M', 'Masculino'),
+        ('F', 'Femenino'),
+        ('O', 'Otro'),
+    ]
 
-    @property
-    def nombre_completo(self):
-        return f"{self.nombre} {self.apellido}"
+    nombre = models.CharField(max_length=100)
+    rut = models.CharField(max_length=12, unique=True)
+    edad = models.PositiveIntegerField(null=True, blank=True)
+    sexo = models.CharField(max_length=1, choices=SEXO_CHOICES, default='O')
 
     def __str__(self):
-        return self.nombre_completo
+        return f"{self.nombre}"
 
+
+# ------------------ CONSULTA ------------------
+class Consulta(models.Model):
+    medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    fecha = models.DateField()
+    motivo = models.TextField()
+
+    def __str__(self):
+        return f"Consulta de {self.paciente} con {self.medico} el {self.fecha}"
+
+
+# ------------------ MEDICAMENTO ------------------
 class Medicamento(models.Model):
-    nombre = models.CharField(max_length=150)
-    presentacion = models.CharField(max_length=80, blank=True)
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.nombre
 
-class Consulta(models.Model):
-    medico = models.ForeignKey(Medico, on_delete=models.CASCADE, related_name='consultas')
-    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='consultas')
-    fecha = models.DateTimeField()
-    motivo = models.TextField(blank=True)
-    diagnostico = models.TextField(blank=True)
 
-    def __str__(self):
-        return f"Consulta {self.id} - {self.paciente.nombre_completo} / {self.medico.nombre_completo}"
-
+# ------------------ RECETA ------------------
 class Receta(models.Model):
-    consulta = models.ForeignKey(Consulta, on_delete=models.CASCADE, related_name='recetas')
-    medicamento = models.ForeignKey(Medicamento, on_delete=models.SET_NULL, null=True)
-    dosis = models.CharField(max_length=120, blank=True)
-    instrucciones = models.TextField(blank=True)
+    consulta = models.ForeignKey(Consulta, on_delete=models.CASCADE)
+    medicamento = models.ForeignKey(Medicamento, on_delete=models.CASCADE)
+    indicaciones = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"Receta {self.id} - {self.medicamento}"
+        return f"Receta {self.id} - {self.consulta}"
+
+
+# ------------------ TRATAMIENTO ------------------
+class Tratamiento(models.Model):
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
+    descripcion = models.TextField()
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField(null=True, blank=True)
+    activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Tratamiento de {self.paciente} con {self.medico}"

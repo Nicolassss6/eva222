@@ -1,2 +1,13 @@
-{% extends 'base.html' %}{% block title %}Nueva Consulta{% endblock %}{% block content %}
-<div class="card" style="max-width:700px"><h2>Registrar Consulta</h2><form method="post">{% csrf_token %}{{ form.as_p }}<div style="margin-top:12px"><button class="btn" type="submit">Guardar</button><a href="{% url 'consulta_list' %}" style="margin-left:8px">Cancelar</a></div></form></div>{% endblock %}
+{% extends 'base.html' %}
+{% block title %}Nueva Consulta{% endblock %}
+{% block content %}
+<div class="card mt-4 p-4">
+  <h2>{% if object %}Editar Consulta{% else %}Registrar Consulta{% endif %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success mt-2">Guardar</button>
+    <a href="{% url 'consulta_list' %}" class="btn btn-secondary mt-2">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
